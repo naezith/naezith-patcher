@@ -3,8 +3,10 @@
 #include "depend/picojson.h"
 
 NetworkManager::NetworkManager():
-    http("http://ron.doomdns.com/", 3000) {
+    hostIP("http://ron.doomdns.com/"),
+    http(hostIP, 3000) {
 }
+
 NetworkManager::NETWORKSTATUS NetworkManager::fetchChanges(const int version) {
     std::ostringstream data;
     data << "version=" << version;
@@ -39,10 +41,12 @@ bool NetworkManager::downloadFile(std::string server, std::string file, std::str
 	http.setHost(server);
 	sf::Http::Request request;
 	request.setMethod(sf::Http::Request::Get);
-	request.setUri(std::string("Release/" + file));
+	std::string uri = std::string("/Release/" + file);
+	request.setUri(uri);
 	sf::Http::Response response = http.sendRequest(request);
+
 	if(response.getStatus() != sf::Http::Response::Ok){
-        std::cout << " -> Failed!" << std::endl;
+        std::cout << " -> Download failed, Status: " << response.getStatus() << std::endl;
 		return false;
     }
 
@@ -55,7 +59,8 @@ bool NetworkManager::downloadFile(std::string server, std::string file, std::str
 
     std::ofstream out(dest.c_str(), std::ios::out | std::ios::binary);
     if(!out.is_open()){
-        std::cout << " Could not save the file." << std::endl;
+        std::cout << " Could not save the file. It might be in use by some other program or probably the folders are missing. "
+        << "For example if the file is \"data/resources/new_folder/new_file.png\" and the \"new_folder\" is missing, you have to create it manually. Then it can save without issues. " << std::endl;
         return false;
     }
     out.write(body.data(), sizeof(char)*body.size());

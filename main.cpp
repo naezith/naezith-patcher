@@ -20,7 +20,7 @@ int main(int argc, char * argv[]){
         "He will probably ask you to download the whole game again." << std::endl;
         cin.get(); return -1;
     }
-    cout << "\n Your client needs update. ARGS: "  << argv[0] << " " << argv[1] << endl;
+    cout << "\n Your client needs update, please wait while it's updating automatically." << endl;
     cout << "\n\n Current Version : " << version << endl;
     cout << "\n Target Version : " << versionInServer << endl;
 
