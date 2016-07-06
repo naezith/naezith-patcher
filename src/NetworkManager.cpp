@@ -3,8 +3,8 @@
 #include "depend/picojson.h"
 
 NetworkManager::NetworkManager():
-    hostIP("http://ron.doomdns.com/"),
-    http(hostIP, 3000) {
+    hostIP("http://ron.naezith.com/"),
+    http(hostIP, 2095) {
 }
 
 NetworkManager::NETWORKSTATUS NetworkManager::fetchChanges(const int version) {
