@@ -1,0 +1,20 @@
+{
+  "name": "map-patch",
+  "version": "1.0.0",
+  "description": "Compares official naezith maps in a given directory with the database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "naezith",
+    "map",
+    "patch"
+  ],
+  "author": "Yengas",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "mysql": "^2.11.1"
+  }
+}

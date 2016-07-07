@@ -36,7 +36,11 @@ int main(int argc, char * argv[]){
     for(int i = 0; i < NetworkManager::i().change_count; ++i){
         ACTION& act = NetworkManager::i().files[i];
         std::cout << "File : " << act.path << " , Action : " << act.action << std::endl;
-        if(act.path != "patcher.exe" && act.path.find("replays") == string::npos){
+        if(act.path == "patcher.exe"){
+            cout << "Patcher is updated, you have to download the game again. Ask naezith about it." << endl;
+            cin.get(); return -1;
+        }
+        if(act.path.find("replays") == string::npos){
             std::string pathToRemove = ".\\" + act.path;
             ifstream fin(pathToRemove.c_str());
             if (fin){

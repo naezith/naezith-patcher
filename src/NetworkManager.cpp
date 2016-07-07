@@ -34,6 +34,14 @@ NetworkManager::NETWORKSTATUS NetworkManager::fetchChanges(const int version) {
     return status;
 }
 
+bool replace(std::string& str, const std::string& from, const std::string& to) {
+    size_t start_pos = str.find(from);
+    if(start_pos == std::string::npos)
+        return false;
+    str.replace(start_pos, from.length(), to);
+    return true;
+}
+
 bool NetworkManager::downloadFile(std::string server, std::string file, std::string dest){
     std::cout << " Downloading : " << file;
     // Download file
@@ -41,7 +49,12 @@ bool NetworkManager::downloadFile(std::string server, std::string file, std::str
 	http.setHost(server);
 	sf::Http::Request request;
 	request.setMethod(sf::Http::Request::Get);
+
+	while(replace(file, " ", "%20")) { }
+
 	std::string uri = std::string("/Release/" + file);
+
+
 	request.setUri(uri);
 	sf::Http::Response response = http.sendRequest(request);
 
