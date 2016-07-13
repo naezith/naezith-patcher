@@ -67,6 +67,7 @@ bool NetworkManager::downloadFile(std::string server, std::string file, std::str
 
 
 
+	while(replace(file, "%20", " ")) { }
     dest.append(file);
     std::cout << " -> Saved!" << std::endl;
 
