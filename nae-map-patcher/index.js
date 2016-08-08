@@ -88,7 +88,7 @@ function parseMapFile(path){
 	@param excludes Array of file names to not remove from the directory.
 	@return Array[object{[file|data]: String, name: String, hash: String, status: [1|-1]}] difference of local and remote.
 **/
-function diff(local, remote, excludes = ['main_background.ronm']){
+function diff(local, remote, excludes = ['main_background.ronm', 'Practice Lair.ronm']){
 	let difference = [];
 
 	// Check local files against remote to see if we should remove, keep the same, or replace.
