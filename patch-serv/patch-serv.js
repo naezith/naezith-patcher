@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var fs = require('fs'),
 	path = require('path'),
 	archiver = require('archiver'); 

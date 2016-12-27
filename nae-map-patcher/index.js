@@ -4,7 +4,7 @@ const mysql = require('mysql'),
 	path = require('path'),
 	argv = require('minimist')(process.argv.slice(2)),
 	config = require(argv.config || path.join(__dirname, './config.js'));
-config.mapDirectory = argv.mapDirectory || path.join(__dirname, './maps');
+config.mapDirectory = argv.mapDirectory || path.join(__dirname, './maps/official');
 
 /**
 	hashString returns a sha256 hash of an given string
@@ -32,7 +32,7 @@ function insertFile(path, data){
 	@return object{ content: String, name: String } content representing map data, and name represeting the map's name.
 **/
 function mapQueryResult(res){
-	return { data: res.data, name: res.username + '-' + res.name + '.ronm', hash: hashString(res.data) };
+	return { data: res.data, name: res.name + '.ronm', hash: hashString(res.data) };
 }
 
 /**
@@ -42,11 +42,7 @@ function mapQueryResult(res){
 **/
 function databaseMapList(connection){
 	return new Promise((resolve, reject) => {
-		connection.query(`
-			SELECT player.username, level.name, level.data 
-			FROM level INNER JOIN player ON player.id = level.author_id
-			WHERE level.is_custom = 0
-		`, (err, result) => { 
+		connection.query(`SELECT name, data FROM level WHERE level.is_custom = 0`, (err, result) => { 
 			return err ? reject(err) : resolve(result.map(mapQueryResult).reduce((obj, curr) => { obj[curr.name] = curr; return obj; }, {}));
 		});
 	});u
