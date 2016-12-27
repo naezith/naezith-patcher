@@ -15,13 +15,16 @@ class Patcher():
         for action in actions:
             path = str(action['path'])
             if action['action'] == 'remove':
-                try:
-                    os.remove(path)
-                    print('Removed %s' %(path))
-                except:
-                    print('Could not remove %s' %(path))
-                    time.sleep(60)
-                    sys.exit(-1)
+                if os.path.isfile(path):
+                    try:
+                        os.remove(path)
+                        print('Removed %s' %(path))
+                    except:
+                        print('Could not remove %s' %(path))
+                        time.sleep(60)
+                        sys.exit(-1)
+                else:
+                    print('%s does not exist, skipping' %(path))
             elif action['action'] == 'add':
                 try:
                     dirs = path.split('/')
