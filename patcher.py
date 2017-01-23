@@ -6,7 +6,7 @@ import time
 
 class Patcher():
     def fetchChanges(self, version):
-        r = requests.post('http://ron.naezith.com:2095/fetchChanges/', json={'version': version})
+        r = requests.post('http://ron.naezith.com/fetchChanges/', json={'version': version})
         actions = r.json()['changes']
         return actions
 
@@ -34,7 +34,7 @@ class Patcher():
                             os.makedirs(mkpath)
                             print(mkpath)
                     print('Downloading %s...' %(path))
-                    r = requests.get('http://ron.naezith.com/Release/'+action['path'], stream=True)
+                    r = requests.get('http://ron.naezith.com/files/Release/'+action['path'], stream=True)
                     with open(path,'wb') as dest:
                         for block in r:
                             dest.write(block)
